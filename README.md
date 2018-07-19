@@ -395,3 +395,196 @@ van-col  列 宽度根据span属性的值
             }
         }
     },
+
+***
+
+### 12.flex 布局
+
+    display: flex;
+
+    flex-direction: row; //布局方向
+
+row（默认值）：主轴为水平方向，起点在左端。
+row-reverse：主轴为水平方向，起点在右端。
+column：主轴为垂直方向，起点在上沿。
+column-reverse：主轴为垂直方向，起点在下沿。
+flex-wrap:wrap;  //如何换行
+
+nowrap（默认）：不换行
+
+wrap：换行，第一行在上方。
+
+wrap-reverse：换行，第一行在下方。
+
+***
+
+### 13.组件之间传递数据
+
+在需要接收数据的组件定义接收的属性名；
+
+如组件：floorComponent，
+
+JS代码：
+
+    export default {
+
+            props:['floorData'],
+
+    ｝
+
+调用：**this.floorData**
+
+使用组件时传递数据：
+
+    <floorComponent :floorData="floor1"></floorComponent>
+ 
+
+floor1 传递给 floorData
+
+ 
+
+watch监测数据是否发生变化：
+
+因为数据是从远程请求获取，组件渲染时数据并没有获取到；所以会导致渲染不出来。
+
+使用watch属性可以监测到数据请求成功后，改变绑定的数据；从而渲染组件。
+
+    watch:{
+
+        floorData:function(val){
+
+            console.log(this.floorData)
+
+            this.floorData0=this.floorData[0]
+
+            this.floorData1=this.floorData[1]
+
+            this.floorData2=this.floorData[2]
+
+        }
+
+    }
+    
+***
+
+### jspang.com博客是wordpress搭的
+***
+
+### 14.组件间传递多个参数：
+
+ 
+
+定义：
+
+    props:['floorData','floorTitle'],
+传递：
+
+    <floorComponent :floorData="floor1" :floorTitle="floorName.floor1"></floorComponent>
+ 
+
+重复使用组件：
+
+
+    <floorComponent :floorData="floor1" :floorTitle="floorName.floor1"></floorComponent>
+    <floorComponent :floorData="floor2" :floorTitle="floorName.floor2"></floorComponent>
+    <floorComponent :floorData="floor3" :floorTitle="floorName.floor3"></floorComponent>
+
+***
+
+### 15.filter 的使用：
+
+src下建立filter文件夹
+
+src/filter
+
+建立一个filter； 
+
+如： moneyFilter.js 文件
+
+    export function toMoney(money = 0){
+
+        return money.toFixed(2)
+
+    }
+
+ 
+
+在使用的场景引入Filter：  
+
+    import {toMoney} from '@/filter/moneyFilter.js'
+
+ 
+
+在vue的 filters属性中引用：
+
+    filters:{
+        moneyFilter(money){
+            return toMoney(money)
+        }  
+    },
+ 
+
+fitlers中的名字可以自定义，但返回的toMoney方法，要和你上边引入的一样。 
+
+***
+### 16.vant-list 
+
+  可以下拉加载
+
+商品显示组件化
+
+ 因为在其它页面也常用到
+
+*** 
+
+### 17.编写接口配置文件
+src下建立serviceAPI.config.js:
+
+ 
+
+    const BASEURL = "https://www.easy-mock.com/mock/5ae2eeb23fbbf24d8cd7f0b6/SmileVue/"
+
+    // BASEURL  后台给的API接口的根路径
+
+
+    const URL = {
+        getShoppingMallInfo:BASEURL+'index',
+        getGoodsInfo:BASEURL+'getGoodsInfo'
+    }
+
+    module.exports = URL
+
+ 
+
+// URL 对象中 配置不同的请求路径
+
+ 
+
+调用：
+
+    import url from '@/serviceAPI.config.js'
+
+    axios({
+        url: url.getShoppingMallInfo,
+        method: 'get',
+    })
+
+ 
+
+
+// @ 表示 src目录 在build/webpack.base.conf.js 中配置
+
+    resolve: {
+
+    extensions: ['.js', '.vue', '.json'],
+
+    alias: {
+
+    '@': resolve('src'),
+
+    }
+
+    },
+
+
+
