@@ -179,7 +179,7 @@ van-col  列 宽度根据span属性的值
     
   ***
 
-### 7.利用Vant实现图片轮播的懒加载:
+### 6.利用Vant实现图片轮播的懒加载:
     import { Button, Row, Col ,Search , Swipe , SwipeItem , Lazyload  } from 'vant'
     Vue.use(Button).use(Row).use(Col).use(Search).use(Swipe).use(SwipeItem).use(Lazyload)  
 
@@ -201,7 +201,7 @@ van-col  列 宽度根据span属性的值
     overflow:hidden;  
 
 ***
-### 8.安装引入axios:
+### 7.安装引入axios:
 
     npm install axios --save
 
@@ -231,7 +231,7 @@ van-col  列 宽度根据span属性的值
 
 ***
 
-### 9.从胖哥博客上copy的数据 营养鲜果 的图片 比其它4张图片要小。（50*50 ，其它都是70*70）
+### 8.从胖哥博客上copy的数据 营养鲜果 的图片 比其它4张图片要小。（50*50 ，其它都是70*70）
 
 所以造成了营养鲜果的图片显示要比其它小。布局错乱、
 
@@ -260,7 +260,7 @@ van-col  列 宽度根据span属性的值
 字体设置成12px 比较合适 超过12px在iphone 5等小屏幕上显示会换行。
 
 ***
-### 10.使用vue-awesome-swiper
+### 9.使用vue-awesome-swiper
 
 安装：
 
@@ -289,7 +289,7 @@ van-col  列 宽度根据span属性的值
     }
 
 ***
-### 11.vue-awesome-swiper组件的使用：
+### 10.vue-awesome-swiper组件的使用：
 
 把swiper以组件的形式使用
 
@@ -350,7 +350,7 @@ van-col  列 宽度根据span属性的值
  
  ***
 
-### 12.vue-awesome-swiper 组件属性：
+### 11.vue-awesome-swiper 组件属性：
 
     direction：’vertical’ 设置竖排显示
 
