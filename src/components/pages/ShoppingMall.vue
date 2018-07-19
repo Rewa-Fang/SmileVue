@@ -26,8 +26,24 @@
                 <span v-text="cate.mallCategoryName"></span>
             </div>
         </div>
-        <div>
+        <!--AD banner area-->
+        <div class="add-banner"> 
             <img v-lazy="advertesPicture" alt="" width="100%">
+        </div>
+        <!-- recommend-area -->
+        <div class="recommend-area">
+            <div class="recommend-title">
+                商品推荐
+            </div>
+            <div class="recommned-body">
+                <swiper :options="swiperOption">
+                    <swiper-slide v-for="(recom,index) in recommendGoods" :key="index" class="recommend-item">
+                        <img v-lazy="recom.image" alt="" width="100%">
+                        <div>{{ recom.goodsName }}</div>
+                        <div>￥{{ recom.price }}(￥{{ recom.mallPrice }})</div>
+                    </swiper-slide>
+                </swiper>
+            </div>
         </div>
     </div>
 </template>
@@ -35,6 +51,8 @@
 <script>
 
 import axios from 'axios'
+import 'swiper/dist/css/swiper.css'
+import {swiper,swiperSlide} from 'vue-awesome-swiper'
 export default {
     data() {
         return {
@@ -42,15 +60,24 @@ export default {
             bannerPicArray:[],
             category:[],
             advertesPicture:'',
+            recommendGoods :[],
+            swiperOption:{
+                slidesPerView:3
+            }
         }
+    },
+    components:{
+        swiper,
+        swiperSlide
     },
     created(){
         axios({url:'https://easy-mock.com/mock/5b4ef4e52f528a212c9617d4/SmileVue/index',method:'get'})
         .then(response=>{
-            // console.log(response);
+            console.log(response);
             this.bannerPicArray = response.data.data.slides;
             this.category = response.data.data.category;
             this.advertesPicture = response.data.data.advertesPicture.PICTURE_ADDRESS;
+            this.recommendGoods = response.data.data.recommend;
         })
         .catch(error=>{
             console.log(error);
@@ -100,5 +127,31 @@ export default {
     padding: .3rem;
     font-size: 12px;
     text-align: center;
+  }
+  /* .add-banner{
+    width: 20rem;
+    height: 5rem;
+  } */  
+  .recommend-area{
+      background-color: #fff;
+      margin-top: .3rem;
+  }
+  .recommend-title{
+      color: #e5017d;
+      padding: .2rem;
+      font-size: 14px;
+      border-bottom: 1px solid #eee;
+  }
+  .recommned-body{
+      border-bottom: 1px solid #eee;
+  }
+  .recommend-item{
+      width:99%;
+      border-right: 1px solid #eee;
+      font-size: 12px;
+      text-align: center;
+  }
+  .recommend-item img{
+      border-bottom: 1px solid #eee;
   }
 </style>
