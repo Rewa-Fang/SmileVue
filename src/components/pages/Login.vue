@@ -1,7 +1,7 @@
 <template>
   <div class="registry-vue">
-    <van-nav-bar title="用户注册" left-text="返回" right-text="登录" 
-    left-arrow @click-left="onBack" @click-right="onLogin" />
+    <van-nav-bar title="用户登录" left-text="返回" right-text="注册" 
+    left-arrow @click-left="onBack" @click-right="onRegistry" />
     <van-cell-group class="reg-from">
       <van-field
         v-model="userName"
@@ -21,7 +21,7 @@
         required
         :error-message="passwordErrorMsg"
       />
-      <van-button class="register-button" @click="registerAction" size="large" type="primary" :loading="openLoading">确认注册</van-button>
+      <van-button class="register-button" @click="loginAction" size="large" type="primary" :loading="openLoading">登 录</van-button>
     </van-cell-group>
   </div>
 </template>
@@ -39,20 +39,26 @@
         passwordErrorMsg:'',  //验证提示信息
       }
     },
+    created(){
+        if(localStorage.userInfo){
+            Toast.success('已登录');
+            this.$router.push('/')
+        }
+    },
     methods:{
       onBack(){
         this.$router.go(-1);
       },
-      onLogin(){
-        this.$router.push('/login')
+      onRegistry(){
+          this.$router.push('/registry')
       },
-      registerAction(){
-        this.checked() && this.axiosRegisterUser()
+      loginAction(){
+        this.checked() && this.axiosLoginUser()
       },
-      axiosRegisterUser(){
+      axiosLoginUser(){
         this.openLoading = true;
         axios({
-            url: URL.postRegister,
+            url: URL.login,
             method: 'post',
             data:{
                 userName:this.userName,
@@ -60,20 +66,29 @@
             }
         })
         .then(response => {
-            console.log(response)
-            if(response.data.code == 200){
-              Toast.success(response.data.message);
-              this.$router.push('/');
+            if(response.data.code == 200 && response.data.message){
+                new Promise((resolve,reject)=>{
+                    localStorage.userInfo = {userName:this.userName};
+                    setTimeout(()=>{
+                        resolve()
+                    },500)
+                }).then(()=>{
+                    Toast.success('login success')
+                    this.$router.push('/')
+                }).catch(err=>{
+                    Toast.fail('localStorage fail')
+                    console.log(err);
+                })
             }else{
-              Toast.fail('注册失败')
-              this.openLoading = false;
-              console.log(response.data.message);
+                console.log(response.data.message);
+                Toast.fail('login fail:'+response.data.message)
+                this.openLoading = false;
             }
         })
         .catch((error) => {
-            console.log(error)
+            console.log(error);
+            Toast.fail('login error')
             this.openLoading = false;
-            Toast.fail('注册失败')
         })
       },
       checked(){

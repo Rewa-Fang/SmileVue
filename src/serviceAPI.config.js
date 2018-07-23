@@ -3,7 +3,8 @@ const LOCALHOST = 'http://localhost:3000/';
 const URL = {
   getShoppingMall : BASEURL + 'index',
   getUser : LOCALHOST + 'user',
-  postRegister : LOCALHOST + 'user/register'
+  postRegister : LOCALHOST + 'user/register',
+  login : LOCALHOST + 'user/login',
 }
 
 export default URL;
