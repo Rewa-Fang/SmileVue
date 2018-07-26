@@ -22,6 +22,7 @@
         :error-message="passwordErrorMsg"
       />
       <van-button class="register-button" @click="registerAction" size="large" type="primary" :loading="openLoading">确认注册</van-button>
+      <van-button class="login-button" @click="onLogin" size="large" type="default" >已有账号 登录</van-button>
     </van-cell-group>
   </div>
 </template>
@@ -108,6 +109,7 @@
   }
   .register-button{
     margin-top: 2rem;
+    margin-bottom: 1rem;
   }
 </style>
 
