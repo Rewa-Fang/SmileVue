@@ -48,6 +48,7 @@
         this.$router.push('/login')
       },
       registerAction(){
+        // 等同于  if(this.checked()){this.axiosRegisterUser();}  这种写法看似优雅  但个人觉得可读性差
         this.checked() && this.axiosRegisterUser()
       },
       axiosRegisterUser(){
