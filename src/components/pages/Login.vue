@@ -73,7 +73,7 @@
                         resolve()
                     },500)
                 }).then(()=>{
-                    Toast.success('login success')
+                    Toast.success('登录成功')
                     this.$router.push('/')
                 }).catch(err=>{
                     Toast.fail('localStorage fail')
