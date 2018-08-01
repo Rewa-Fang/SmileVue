@@ -5,6 +5,7 @@ const URL = {
   getUser : LOCALHOST + 'user',
   postRegister : LOCALHOST + 'user/register',
   login : LOCALHOST + 'user/login',
+  goodsInfo : LOCALHOST + 'goods/getDetailGoodsInfo',
 }
 
 export default URL;
