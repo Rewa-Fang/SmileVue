@@ -7,6 +7,8 @@ const URL = {
   login : LOCALHOST + 'user/login',
   goodsInfo : LOCALHOST + 'goods/getDetailGoodsInfo',
   getCategoryList : LOCALHOST + 'goods/getCategoryList',
+  getCategorySubList : LOCALHOST + 'goods/getCategorySubList',
+  getGoodsListByCategorySubID : LOCALHOST + 'goods/getGoodsListByCategorySubID',
 }
 
 export default URL;
