@@ -588,3 +588,10 @@ src下建立serviceAPI.config.js:
 
 
 
+###  预览地址
+serviceAPI.config.js 文件中 把url地址改为 本机局域网IP
+const LOCALHOST = 'http://192.168.1.145:3000/'; //前提是后台也是在本机运行且端口为3000
+config/index.js 文件中  启动地址 host改为
+host: '192.168.1.145',
+
+这样便于 局域网内其它电脑访问调试
