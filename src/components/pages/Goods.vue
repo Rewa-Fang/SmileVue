@@ -21,7 +21,7 @@
     </div>
     <div class="goods-bottom">
       <div>
-        <van-button size="large" type="primary">加入购物车</van-button>
+        <van-button size="large" type="primary" @click="addGoodsToCart">加入购物车</van-button>
       </div>
       <div>
         <van-button size="large" type="danger">直接购买</van-button>
@@ -34,6 +34,7 @@
 import axios from "axios";
 import REQUEST_URL from "@/serviceAPI.config.js";
 import { toMoney } from "@/filter/moneyFilter.js";
+import { Toast } from "vant";
 export default {
   data() {
     return {
@@ -42,7 +43,7 @@ export default {
     };
   },
   created() {
-    this.goodsId = this.$route.query.goodsId;
+    this.goodsId = this.$route.params.goodsId;
     console.log(this.goodsId);
     this.getInfo();
   },
@@ -75,6 +76,38 @@ export default {
     },
     onClickLeft() {
       this.$router.go(-1);
+    },
+    addGoodsToCart() {
+      let cartInfo = localStorage.cartInfo
+        ? JSON.parse(localStorage.cartInfo)
+        : [];
+      let isExist = cartInfo.find(cart => {
+        return cart.goodsId == this.goodsId;
+      });
+
+      if (!isExist) {
+        let newGoodsInfo = {
+          goodsId: this.goodsInfo.ID,
+          Name: this.goodsInfo.Name,
+          price: this.goodsInfo.PRESENT_PRICE,
+          image: this.goodsInfo.IMAGE1,
+          count: 1
+        };
+        cartInfo.push(newGoodsInfo);
+        localStorage.cartInfo = JSON.stringify(cartInfo);
+        Toast.success("添加成功！ ");
+      } else {
+        Toast.success("购物车已有此商品！ ");
+      }
+      this.$router.push({name:'Cart'});
+    },
+    beforeRouteLeave(to, from, next) {
+      // 设置下一个路由的 meta  缓存，即不刷新
+      to.meta.keepAlive = true;
+
+      // 设置本页面的 meta  不缓存，即刷新
+      from.meta.keepAlive = false;
+      next();
     }
   }
 };

@@ -24,11 +24,11 @@
           <div id="list-div">
             <van-pull-refresh v-model="isRefresh" @refresh="onRefresh">
               <van-list v-model="loading" :finished="finished" :loading-text="loadingText" @load="onLoad">
-                <div class="list-item" v-for="(item,index) in goodList" :key="index">
+                <div class="list-item" v-for="(item,index) in goodList" :key="index" @click="goGoodsInfo(item.ID)">
                   <div class="list-item-img"><img :src="item.IMAGE1" width="100%" :onerror="errorImg" /></div>
                   <div class="list-item-text">
                     <div>{{item.NAME}}</div>
-                    <div class="">￥{{item.ORI_PRICE}}</div>
+                    <div class="">￥{{item.ORI_PRICE | moneyFilter}}</div>
                   </div>
                 </div>
               </van-list>
@@ -43,7 +43,8 @@
 <script>
 import axios from "axios";
 import url from "@/serviceAPI.config.js";
-
+import { toMoney } from "@/filter/moneyFilter.js";
+import { Toast } from "vant";
 export default {
   data() {
     return {
@@ -64,6 +65,11 @@ export default {
   created() {
     //获取大类数据
     this.getCategory();
+  },
+  filters: {
+    moneyFilter(money) {
+      return toMoney(money);
+    }
   },
   mounted() {
     let winHeight = document.documentElement.clientHeight;
@@ -153,12 +159,12 @@ export default {
             this.page++;
             this.goodList = this.goodList.concat(response.data.message);
           } else {
-            Toast("服务异常");
             this.finished = true;
           }
           this.loading = false;
         })
         .catch(error => {
+          Toast("服务异常");
           console.log(error);
         });
     },
@@ -169,7 +175,15 @@ export default {
       this.finished = false;
       this.page = 1;
       this.onLoad();
+    },
+    goGoodsInfo(id) {
+      this.$router.push({ name: "Goods", params: { goodsId: id } });
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    // 设置下一个路由的 meta  不缓存，即刷新
+    to.meta.keepAlive = false;
+    next();
   }
 };
 </script>

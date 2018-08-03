@@ -1,76 +1,76 @@
 
 <template>
-    <div>
-        <!--search bar layout-->
-        <div class="search-bar">
-            <van-row gutter="5">
-                <van-col span="3"><img :src="locationIcon" width="80%" class="location-icon" /></van-col>
-                <van-col span="16">
-                    <input type="text" class="search-input" />
-                </van-col>
-                <van-col span="5">
-                    <van-button size="mini">查找</van-button>
-                </van-col>
-            </van-row>
-        </div>
-        <!-- swiper-area -->
-        <div class="swiper-area">
-            <van-swipe :autoplay="1000">
-                <van-swipe-item v-for="(banner,index) in bannerPicArray" :key="index">
-                    <img v-lazy="banner.image" alt="" width="100%">
-                </van-swipe-item>
-            </van-swipe>
-        </div>
-        <!-- type-bar -->
-        <div class="type-bar">
-            <div v-for="(cate,index) in category" :key="index">
-                <img v-lazy="cate.image" alt="" width="90%">
-                <span v-text="cate.mallCategoryName"></span>
-            </div>
-        </div>
-        <!--AD banner area-->
-        <div class="add-banner">
-            <img v-lazy="advertesPicture" alt="" width="100%">
-        </div>
-        <!-- recommend-area -->
-        <div class="recommend-area">
-            <div class="recommend-title">
-                商品推荐
-            </div>
-            <div class="recommned-body">
-                <swiper :options="swiperOption">
-                    <swiper-slide v-for="(recom,index) in recommendGoods" :key="index" class="recommend-item">
-                        <img v-lazy="recom.image" alt="" width="100%">
-                        <div>{{ recom.goodsName }}</div>
-                        <div class="price">￥{{ recom.price | moneyFilter }}(￥{{ recom.mallPrice | moneyFilter }})</div>
-                    </swiper-slide>
-                </swiper>
-            </div>
-        </div>
-
-        <!-- floor1 -->
-        <floorComponent :floor="floor1" :floorTitle="floorName.floor1"></floorComponent>
-        <!-- floor2 -->
-        <floorComponent :floor="floor2" :floorTitle="floorName.floor2"></floorComponent>
-        <!-- floor3 -->
-        <floorComponent :floor="floor3" :floorTitle="floorName.floor3"></floorComponent>
-
-        <!--Hot Area-->
-        <div class="hot-area">
-            <div class="hot-title">热卖商品</div>
-            <div class="hot-goods">
-                <!--这里需要一个list组件-->
-                <van-list>
-                    <van-row>
-                        <van-col span="12" v-for="(item,index) in hotGoods" :key="index">
-                            <goodsInfo :goodsId="item.goodsId" :goodsName="item.name" :goodsImage="item.image" :goodsPrice="item.price"></goodsInfo>
-                        </van-col>
-                    </van-row>
-                </van-list>
-            </div>
-        </div>
-
+  <div>
+    <!--search bar layout-->
+    <div class="search-bar">
+      <van-row gutter="5">
+        <van-col span="3"><img :src="locationIcon" width="80%" class="location-icon" /></van-col>
+        <van-col span="16">
+          <input type="text" class="search-input" />
+        </van-col>
+        <van-col span="5">
+          <van-button size="mini">查找</van-button>
+        </van-col>
+      </van-row>
     </div>
+    <!-- swiper-area -->
+    <div class="swiper-area">
+      <van-swipe :autoplay="1000">
+        <van-swipe-item v-for="(banner,index) in bannerPicArray" :key="index">
+          <img v-lazy="banner.image" alt="" width="100%">
+        </van-swipe-item>
+      </van-swipe>
+    </div>
+    <!-- type-bar -->
+    <div class="type-bar">
+      <div v-for="(cate,index) in category" :key="index">
+        <img v-lazy="cate.image" alt="" width="90%">
+        <span v-text="cate.mallCategoryName"></span>
+      </div>
+    </div>
+    <!--AD banner area-->
+    <div class="add-banner">
+      <img v-lazy="advertesPicture" alt="" width="100%">
+    </div>
+    <!-- recommend-area -->
+    <div class="recommend-area">
+      <div class="recommend-title">
+        商品推荐
+      </div>
+      <div class="recommned-body">
+        <swiper :options="swiperOption">
+          <swiper-slide v-for="(recom,index) in recommendGoods" :key="index" class="recommend-item">
+            <img v-lazy="recom.image" alt="" width="100%">
+            <div>{{ recom.goodsName }}</div>
+            <div class="price">￥{{ recom.price | moneyFilter }}(￥{{ recom.mallPrice | moneyFilter }})</div>
+          </swiper-slide>
+        </swiper>
+      </div>
+    </div>
+
+    <!-- floor1 -->
+    <floorComponent :floor="floor1" :floorTitle="floorName.floor1"></floorComponent>
+    <!-- floor2 -->
+    <floorComponent :floor="floor2" :floorTitle="floorName.floor2"></floorComponent>
+    <!-- floor3 -->
+    <floorComponent :floor="floor3" :floorTitle="floorName.floor3"></floorComponent>
+
+    <!--Hot Area-->
+    <div class="hot-area">
+      <div class="hot-title">热卖商品</div>
+      <div class="hot-goods">
+        <!--这里需要一个list组件-->
+        <van-list>
+          <van-row>
+            <van-col span="12" v-for="(item,index) in hotGoods" :key="index">
+              <goodsInfo :goodsId="item.goodsId" :goodsName="item.name" :goodsImage="item.image" :goodsPrice="item.price"></goodsInfo>
+            </van-col>
+          </van-row>
+        </van-list>
+      </div>
+    </div>
+
+  </div>
 </template>
 
 <script>
@@ -129,7 +129,12 @@ export default {
       .catch(error => {
         console.log(error);
       });
-  }
+  },
+  // beforeRouteLeave(to, from, next) {
+  //   // 设置下一个路由的 meta  不缓存，即刷新
+  //   to.meta.keepAlive = false;
+  //   next();
+  // }
 };
 </script>
 

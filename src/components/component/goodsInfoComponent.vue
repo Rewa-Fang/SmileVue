@@ -19,8 +19,13 @@
         },
         methods:{
             goGoodsPage(){
-                this.$router.push({name:'Goods',query:{goodsId:this.goodsId}});
+                this.$router.push({name:'Goods',params:{goodsId:this.goodsId}});
             }
+        },
+        beforeRouteLeave (to, from, next) {
+            // 设置下一个路由的 meta  不缓存，即刷新
+            to.meta.keepAlive = false;
+            next();
         }
     }
 </script>
