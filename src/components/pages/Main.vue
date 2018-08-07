@@ -2,6 +2,7 @@
 <template>
     <div>
         <div class="main-div">
+            <!-- 这里用来显示底部导航栏切换显示的页面 -->
          <router-view/>
         </div>
          <!-- 底部导航栏 -->
