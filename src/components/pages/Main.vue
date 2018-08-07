@@ -4,7 +4,6 @@
         <div class="main-div">
          <router-view/>
         </div>
-       
         <van-tabbar v-model="active" @change="changeTabbar(active)">
             <van-tabbar-item icon="shop">首页</van-tabbar-item>
             <van-tabbar-item icon="records">分类</van-tabbar-item>
