@@ -4,6 +4,7 @@
         <div class="main-div">
          <router-view/>
         </div>
+         <!-- 底部导航栏 -->
         <van-tabbar v-model="active" @change="changeTabbar(active)">
             <van-tabbar-item icon="shop">首页</van-tabbar-item>
             <van-tabbar-item icon="records">分类</van-tabbar-item>
@@ -23,6 +24,7 @@
         methods: {
             changeTabbar(active) {
                 console.log(active)
+                // active  当前点击的tabbar index  从0开始
                 switch(active){
                     case 0:
                         this.$router.push({name:'ShoppingMall'})
