@@ -129,7 +129,7 @@ export default {
       .catch(error => {
         console.log(error);
       });
-  },
+  }
   // beforeRouteLeave(to, from, next) {
   //   // 设置下一个路由的 meta  不缓存，即刷新
   //   to.meta.keepAlive = false;
@@ -214,5 +214,10 @@ export default {
   font-size: 14px;
   height: 1.8rem;
   line-height: 1.8rem;
+}
+.hot-goods {
+  height: 135rem;
+  overflow: hidden;
+  background-color: #fff;
 }
 </style>

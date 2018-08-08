@@ -22,9 +22,7 @@ export default new Router({
       ]
     },
     {
-      path: '/goods', name: 'Goods', component: Goods, meta: {
-        keepAlive: true
-      }
+      path: '/goods', name: 'Goods', component: Goods, 
     },
     { path: '/registry', name: 'Registry', component: Registry },
     { path: '/login', name: 'Login', component: Login },

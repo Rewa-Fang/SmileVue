@@ -19,8 +19,12 @@
     export default {
         data() {
             return {
-                active: 0
+                active: 0,
+                nowPath:'',
             }
+        },
+        created(){
+            this.changeTabbarActive();
         },
         methods: {
             changeTabbar(active) {
@@ -39,6 +43,13 @@
                     case 3:
                         break;
                 } 
+            },
+            changeTabbarActive(){
+                this.nowPath = this.$route.path;
+                console.log("#############"+this.nowPath);
+                if(this.nowPath == "/cart"){
+                    this.active = 2;
+                }
             }
         },
     }
